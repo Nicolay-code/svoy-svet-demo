@@ -151,6 +151,23 @@
   /* ===================================================== шапка и меню */
   var header = $(".header");
   var navLinks = $$(".nav a");
+  // меню-«бургер» на узких экранах
+  var burger = $("#burger");
+  if (burger && header) {
+    var setMenu = function (open) { header.classList.toggle("is-open", open); burger.setAttribute("aria-expanded", String(open)); };
+    burger.addEventListener("click", function () { setMenu(!header.classList.contains("is-open")); });
+    $$("#mnav a").forEach(function (a) { a.addEventListener("click", function () { setMenu(false); }); });
+  }
+  // плашка итога калькулятора: видна на телефоне, пока на экране форма, а не сам итог
+  (function () {
+    var formEl = $("#calc-form"), resEl = $("#calc-result");
+    if (!formEl || !resEl || !("IntersectionObserver" in window)) return;
+    var formIn = false, resIn = false;
+    var upd = function () { document.body.classList.toggle("calc-mode", formIn && !resIn && window.innerWidth <= 640); };
+    new IntersectionObserver(function (en) { formIn = en[0].isIntersecting; upd(); }, { rootMargin: "-20% 0px -20% 0px" }).observe(formEl);
+    new IntersectionObserver(function (en) { resIn = en[0].isIntersecting; upd(); }, { threshold: 0.15 }).observe(resEl);
+    window.addEventListener("resize", upd);
+  })();
   var onScroll = function () {
     header && header.classList.toggle("is-scrolled", window.scrollY > 10);
     if (window.scrollY < 300) navLinks.forEach(function (a) { a.classList.remove("is-active"); });   // наверху ничего не подсвечиваем
@@ -317,6 +334,9 @@
             : "Дом продержится без сети около " + fmt1(hRound) + " " + plural(Math.round(hRound), "часа", "часов", "часов");
     if (!sel.length) txt = "Отметьте приборы, которые должны работать";
     $("#res-runtime-text").textContent = txt;
+    var cmR = $("#cm-runtime"), cmS = $("#cm-specs");          // плашка итога на телефоне
+    if (cmR) cmR.textContent = "≈ " + (runtime >= 72 ? fmt1(runtime / 24) + " сут" : Math.round(runtime) + " ч");
+    if (cmS) cmS.textContent = inv + " кВт · " + fmt1(bat) + " кВт·ч" + (pv ? " · " + pv + " пан." : "");
     $("#res-avg").textContent = nf2.format(pAvg) + " кВт";
     $("#res-inv").textContent = inv + " кВт";
     $("#res-bat").textContent = fmt1(bat) + " кВт·ч";
@@ -433,10 +453,11 @@
     var d = MODES[m]; if (!d || !stage) return;
     stage.setAttribute("data-mode", m);
     $$(".flow__tabs .pill-btn").forEach(function (b) { var a = b.getAttribute("data-mode") === m; b.classList.toggle("is-active", a); b.setAttribute("aria-selected", String(a)); });
-    Object.keys(d.vals).forEach(function (k) { var t = $('[data-flow-val="' + k + '"]', stage); if (t) t.textContent = d.vals[k]; });
-    $$(".node", stage).forEach(function (n) { n.classList.remove("is-on", "is-off"); });
-    d.on.forEach(function (k) { var n = $(".node--" + k, stage); n && n.classList.add("is-on"); });
-    d.off.forEach(function (k) { var n = $(".node--" + k, stage); n && n.classList.add("is-off"); });
+    // схема (компьютер) и столбик (телефон) обновляются вместе
+    Object.keys(d.vals).forEach(function (k) { $$('[data-flow-val="' + k + '"]', stage).forEach(function (t) { t.textContent = d.vals[k]; }); });
+    $$(".node, .mnode", stage).forEach(function (n) { n.classList.remove("is-on", "is-off"); });
+    d.on.forEach(function (k) { $$(".node--" + k + ", .mnode--" + k, stage).forEach(function (n) { n.classList.add("is-on"); }); });
+    d.off.forEach(function (k) { $$(".node--" + k + ", .mnode--" + k, stage).forEach(function (n) { n.classList.add("is-off"); }); });
     $('[data-flow-cap="title"]', cap).textContent = d.title;
     $('[data-flow-cap="text"]', cap).textContent = d.text;
     cap.classList.remove("is-swap"); void cap.offsetWidth; cap.classList.add("is-swap");

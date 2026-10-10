@@ -94,8 +94,18 @@
     <div class="header__cta">
       <a class="header__phone tbc" data-tbc="Телефон компании Олега" href="#contact"><svg class="ic"><use href="#i-phone"/></svg>+7 (900) 000-00-00</a>
       <a class="btn btn--primary btn--sm" href="#calc">Рассчитать систему</a>
+      <button class="burger" type="button" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
     </div>
   </div>
+  <nav class="mnav" id="mnav" aria-label="Разделы">
+    <a href="#kits">Комплекты</a>
+    <a href="#calc">Подбор системы</a>
+    <a href="#how">Как работает</a>
+    <a href="#compare">Генератор или аккумулятор</a>
+    <a href="#faq">Вопросы</a>
+    <a href="#contact">Связаться</a>
+    <a class="mnav__phone tbc" data-tbc="Телефон компании Олега" href="#contact"><svg class="ic"><use href="#i-phone"/></svg>+7 (900) 000-00-00</a>
+  </nav>
 </header>
 
 <main id="main">
@@ -266,7 +276,7 @@
         </fieldset>
       </form>
 
-      <aside class="calc__result" aria-live="polite">
+      <aside class="calc__result" id="calc-result" aria-live="polite">
         <div class="res__card">
           <p class="res__eyebrow">Ваша система</p>
           <div class="res__hero">
@@ -356,6 +366,17 @@
           <g class="node node--home" transform="translate(660 160)"><rect width="150" height="112" rx="24"/><use href="#i-home" x="18" y="18" width="34" height="34"/><text x="18" y="82" class="node__t">Дом</text><text x="18" y="100" class="node__s" data-flow-val="homesrc">питание от сети</text><text x="134" y="40" text-anchor="end" class="node__v" data-flow-val="home">1,2 кВт</text></g>
           <title id="flow-cap-title">Схема движения энергии между солнцем, сетью, инвертором, аккумулятором и домом</title>
         </svg>
+        <div class="mflow" aria-hidden="true">
+          <div class="mflow__src">
+            <div class="mnode mnode--sun"><svg class="ic"><use href="#i-sun"/></svg><b>Солнце</b><span data-flow-val="sun">ночь</span></div>
+            <div class="mnode mnode--grid"><svg class="ic"><use href="#i-pole"/></svg><b>Сеть</b><span data-flow-val="grid">есть</span></div>
+            <div class="mnode mnode--bat"><svg class="ic"><use href="#i-battery"/></svg><b>Аккумулятор</b><span data-flow-val="bat">100%</span></div>
+          </div>
+          <div class="mflow__arrow"><i></i></div>
+          <div class="mnode mnode--inv mnode--wide"><svg class="ic"><use href="#i-inverter"/></svg><b>Инвертор</b><span>распределяет энергию</span></div>
+          <div class="mflow__arrow"><i></i></div>
+          <div class="mnode mnode--home mnode--wide"><svg class="ic"><use href="#i-home"/></svg><b>Дом</b><span data-flow-val="homesrc">питание от сети</span><em data-flow-val="home">1,2 кВт</em></div>
+        </div>
         <div class="flow__caption" id="flow-caption">
           <h3 data-flow-cap="title">Сеть есть — аккумулятор ждёт</h3>
           <p data-flow-cap="text">Дом питается от сети как обычно. Инвертор держит аккумулятор заряженным на 100% и следит за напряжением.</p>
@@ -543,6 +564,13 @@
     </div>
   </div>
 </footer>
+
+<!-- Итог калькулятора на телефоне: виден, пока человек отмечает приборы -->
+<div class="calc-mini" id="calc-mini" aria-live="polite">
+  <span class="calc-mini__main"><b id="cm-runtime">≈ 31 ч</b> без сети</span>
+  <span class="calc-mini__specs" id="cm-specs">5 кВт · 10 кВт·ч</span>
+  <a class="calc-mini__go" href="#calc-result">Итог<svg class="ic"><use href="#i-arrow"/></svg></a>
+</div>
 
 <!-- Панель вариантов дизайна (только для черновика) -->
 <div class="switcher" id="switcher" aria-label="Варианты дизайна">
