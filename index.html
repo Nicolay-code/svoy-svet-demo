@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="ru" data-theme="night">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Свой свет — резервное питание и солнечные станции для дома</title>
+  <meta name="description" content="Аккумуляторы, инверторы и солнечные панели для дома и дачи. Котёл, насос, холодильник, свет и интернет работают, даже когда отключили электричество. Черновик сайта для обсуждения.">
+  <link rel="icon" href="assets/img/mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&family=Onest:wght@300;400;500;600;700&family=Rubik:wght@500;600;700;800&family=Unbounded:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script>
+    // Вариант дизайна выбирается до отрисовки, чтобы не мигало: ?v=night|day|pro или последний выбранный.
+    (function () {
+      var ok = { night: 1, day: 1, pro: 1 }, v = null;
+      try { v = new URLSearchParams(location.search).get('v'); } catch (e) {}
+      if (!ok[v]) { try { v = localStorage.getItem('svoysvet-theme'); } catch (e) {} }
+      if (ok[v]) document.documentElement.setAttribute('data-theme', v);
+    })();
+  </script>
+  <script defer src="assets/js/app.js"></script>
+</head>
+<body>
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></symbol>
+  <symbol id="i-fridge" viewBox="0 0 24 24"><path d="M5 6a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6Z"/><path d="M5 10h14"/><path d="M15 6.5v1.5"/><path d="M15 13v3"/></symbol>
+  <symbol id="i-snow" viewBox="0 0 24 24"><path d="M2 12h20"/><path d="M12 2v20"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m16 4-4 4-4-4"/><path d="m8 20 4-4 4 4"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.86a10 10 0 0 1 14 0"/><path d="M8.5 16.43a5 5 0 0 1 7 0"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-wind" viewBox="0 0 24 24"><path d="M12.8 19.6A2 2 0 1 0 14 16H2"/><path d="M17.5 8a2.5 2.5 0 1 1 2 4H2"/><path d="M9.8 4.4A2 2 0 1 1 11 8H2"/></symbol>
+  <symbol id="i-tv" viewBox="0 0 24 24"><rect width="20" height="15" x="2" y="7" rx="2"/><path d="M17 2l-5 5-5-5"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24"><path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16"/></symbol>
+  <symbol id="i-microwave" viewBox="0 0 24 24"><rect width="20" height="15" x="2" y="4" rx="2"/><rect width="8" height="7" x="6" y="8" rx="1"/><path d="M18 8v7"/><path d="M6 19v2"/><path d="M18 19v2"/></symbol>
+  <symbol id="i-kettle" viewBox="0 0 24 24"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></symbol>
+  <symbol id="i-washer" viewBox="0 0 24 24"><path d="M3 6h3"/><path d="M17 6h.01"/><rect width="18" height="20" x="3" y="2" rx="2"/><circle cx="12" cy="13" r="5"/><path d="M12 18a2.5 2.5 0 0 0 0-5 2.5 2.5 0 0 1 0-5"/></symbol>
+  <symbol id="i-pot" viewBox="0 0 24 24"><path d="M2 12h20"/><path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8"/><path d="m4 8 16-4"/><path d="m8.86 6.78-.45-1.81a2 2 0 0 1 1.45-2.43l1.94-.48a2 2 0 0 1 2.43 1.46l.45 1.8"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
+  <symbol id="i-battery" viewBox="0 0 24 24"><rect width="16" height="10" x="2" y="7" rx="2"/><path d="M22 11v2"/><path d="M6 10v4"/><path d="M10 10v4"/></symbol>
+  <symbol id="i-inverter" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M7 13c1.25-3.3 2.75-3.3 4 0s2.75 3.3 4 0"/><path d="M7 7.5h3"/><path d="M14 7.5h3"/></symbol>
+  <symbol id="i-panel" viewBox="0 0 24 24"><path d="M3.5 18.5 6 8h12l2.5 10.5z"/><path d="M4.7 13.3h14.6"/><path d="M10 8l-1 10.5"/><path d="M14 8l1 10.5"/><path d="M12 18.5V22"/><path d="M9 22h6"/></symbol>
+  <symbol id="i-pole" viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M2 5h20"/><path d="M3 3v2"/><path d="M7 3v2"/><path d="M17 3v2"/><path d="M21 3v2"/><path d="m19 5-7 7-7-7"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .71-1.53l7-6a2 2 0 0 1 2.58 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></symbol>
+  <symbol id="i-trees" viewBox="0 0 24 24"><path d="M10 10v.2A3 3 0 0 1 8.9 16H5a3 3 0 0 1-1-5.8V10a3 3 0 0 1 6 0Z"/><path d="M7 16v6"/><path d="M13 19v3"/><path d="M12 19h8.3a1 1 0 0 0 .7-1.7L18 14h.3a1 1 0 0 0 .7-1.7L16 9h.2a1 1 0 0 0 .8-1.7L13 3l-1.4 1.5"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></symbol>
+  <symbol id="i-zapoff" viewBox="0 0 24 24"><path d="M10.5 4.5 13.12 2.17a.5.5 0 0 1 .86.46l-1.06 3.33"/><path d="M15.7 10H20a1 1 0 0 1 .78 1.63l-2.4 2.47"/><path d="M14.6 17.8l-3.72 3.83a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14H4a1 1 0 0 1-.78-1.63L7.4 8.06"/><path d="m2 2 20 20"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.54 21.69a.5.5 0 0 0 .94-.03l6.5-19a.5.5 0 0 0-.64-.63l-19 6.5a.5.5 0 0 0-.02.93l7.93 3.18a2 2 0 0 1 1.11 1.11z"/><path d="m21.85 2.15-10.94 10.94"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M9 11.5c.6 1.6 1.9 2.9 3.5 3.5l1.2-1.2 2 .8v1.6c-3.6.4-7.8-3.8-7.4-7.4h1.6l.8 2z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-quiet" viewBox="0 0 24 24"><path d="M11 4.7a.7.7 0 0 0-1.2-.5L6.41 7.59A1.4 1.4 0 0 1 5.42 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.42a1.4 1.4 0 0 1 1 .41l3.38 3.38a.7.7 0 0 0 1.2-.5z"/><path d="M22 9l-6 6"/><path d="M16 9l6 6"/></symbol>
+  <symbol id="i-fuel" viewBox="0 0 24 24"><path d="M3 22h12"/><path d="M4 9h10"/><path d="M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18"/><path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0V9.83a2 2 0 0 0-.59-1.42L18 5"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><path d="m3.3 7 7.7 4.73a2 2 0 0 0 2 0L20.7 7"/><path d="m7.5 4.27 9 5.15"/></symbol>
+  <symbol id="i-calc" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M8 6h8"/><path d="M16 14v4"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></symbol>
+  <symbol id="i-palette" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r="1"/><circle cx="17.5" cy="10.5" r="1"/><circle cx="8.5" cy="7.5" r="1"/><circle cx="6.5" cy="12.5" r="1"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.84-.44-1.13-.29-.29-.44-.65-.44-1.12a1.64 1.64 0 0 1 1.67-1.67h2c3.05 0 5.55-2.5 5.55-5.55C21.97 6.01 17.46 2 12 2z"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-note" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></symbol>
+  <symbol id="i-ruble" viewBox="0 0 24 24"><path d="M6 11h8a4 4 0 0 0 0-8H9v18"/><path d="M6 15h8"/></symbol>
+</svg>
+
+<div class="demo-bar" role="note">
+  <div class="container demo-bar__in">
+    <span class="demo-bar__dot"></span>
+    <span><b>Черновик сайта для обсуждения.</b> Название рабочее, цены и сроки — ориентировочные, иллюстрации созданы ИИ.</span>
+    <a class="demo-bar__link" href="oleg.html"><svg class="ic"><use href="#i-note"/></svg>Заметки для Олега</a>
+  </div>
+</div>
+
+<header class="header" id="top">
+  <div class="container header__in">
+    <a class="logo" href="#top" aria-label="Свой свет — на главную">
+      <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="11" class="logo__bg"/><circle cx="20" cy="17" r="6.2" class="logo__sun"/><path d="M8 30.5 20 21l12 9.5" class="logo__roof"/><path d="M20 5.5v2.4M9.6 9.7l1.7 1.7M30.4 9.7l-1.7 1.7M5.8 17h2.4M31.8 17h2.4" class="logo__rays"/></svg>
+      <span class="logo__text">Свой свет<small>резервное питание для дома</small></span>
+    </a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="#kits">Комплекты</a>
+      <a href="#calc">Подбор</a>
+      <a href="#how">Как работает</a>
+      <a href="#compare">Сравнение</a>
+      <a href="#faq">Вопросы</a>
+    </nav>
+    <div class="header__cta">
+      <a class="header__phone tbc" data-tbc="Телефон компании Олега" href="#contact"><svg class="ic"><use href="#i-phone"/></svg>+7 (900) 000-00-00</a>
+      <a class="btn btn--primary btn--sm" href="#calc">Рассчитать систему</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ========================= ПЕРВЫЙ ЭКРАН ========================= -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__media" aria-hidden="true">
+    <img class="hero__img only-night" src="assets/img/hero_night.webp" alt="" fetchpriority="high">
+    <img class="hero__img only-day" src="assets/img/hero_day.webp" alt="" loading="lazy">
+    <img class="hero__img only-pro" src="assets/img/hero_equipment.webp" alt="" loading="lazy">
+  </div>
+  <div class="hotspot" data-x=".80" data-y=".30" aria-hidden="true"><i></i><span>Гибридный инвертор 6&nbsp;кВт</span></div>
+  <div class="hotspot" data-x=".80" data-y=".71" aria-hidden="true"><i></i><span>LiFePO4 · 3 модуля по 5&nbsp;кВт·ч</span></div>
+  <div class="hotspot hotspot--left" data-x=".664" data-y=".43" aria-hidden="true"><i></i><span>Котёл работает при отключении</span></div>
+  <div class="container hero__in">
+    <div class="hero__copy">
+      <p class="eyebrow hero__eyebrow">
+        <span class="only-night">Резервное питание и солнечные станции для дома</span>
+        <span class="only-day">Солнечные станции для частного дома</span>
+        <span class="only-pro">Комплекты резервного питания · под ключ</span>
+      </p>
+      <h1 class="hero__title" id="hero-title">
+        <span class="only-night">Отключили свет?<br><em>А у вас — есть.</em></span>
+        <span class="only-day">Свой <em>свет</em><small>Днём — от солнца, ночью — из&nbsp;аккумулятора</small></span>
+        <span class="only-pro">Свет, тепло и вода<br><em>при любом отключении</em></span>
+      </h1>
+      <p class="hero__lead">
+        <span class="only-night">Аккумулятор, инвертор и солнечные панели — одна система, которая сама подхватит дом, когда пропадёт сеть. Котёл греет, насос качает воду, холодильник работает, интернет на&nbsp;связи.</span>
+        <span class="only-day">Панели заряжают аккумулятор, инвертор управляет всем сам. Дом перестаёт зависеть от капризов сети, а с весны до осени живёт в основном на своей энергии.</span>
+        <span class="only-pro">Инверторы, аккумуляторы LiFePO4 и панели — готовые комплекты от квартиры до полностью автономного дома. Расчёт под ваши приборы, оборудование со склада, монтаж под&nbsp;ключ.</span>
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--primary btn--lg" href="#calc"><svg class="ic"><use href="#i-calc"/></svg>Рассчитать систему за минуту</a>
+        <a class="btn btn--ghost btn--lg" href="#kits">Смотреть комплекты<svg class="ic"><use href="#i-arrow"/></svg></a>
+      </div>
+      <p class="hero__note"><svg class="ic"><use href="#i-check"/></svg>Расчёт сразу на сайте — без телефона и регистрации</p>
+      <ul class="hero__chips">
+        <li><svg class="ic"><use href="#i-zap"/></svg>Переключение за доли секунды</li>
+        <li><svg class="ic"><use href="#i-quiet"/></svg>Тихо и без бензина</li>
+        <li><svg class="ic"><use href="#i-battery"/></svg>LiFePO4 — служат 10+ лет</li>
+        <li><svg class="ic"><use href="#i-shield"/></svg>Спасает технику от просадок напряжения</li>
+      </ul>
+    </div>
+
+    <aside class="status" aria-label="Пример экрана системы">
+      <div class="status__head">
+        <span class="status__title"><svg class="ic"><use href="#i-home"/></svg>Мой дом · сейчас</span>
+        <span class="status__live"><i></i>онлайн</span>
+      </div>
+      <div class="status__grid">
+        <div class="status__cell">
+          <span class="status__label">Сеть</span>
+          <b class="status__val status__val--bad only-night">нет напряжения</b>
+          <b class="status__val only-day">есть · не нужна</b>
+          <b class="status__val status__val--bad only-pro">нет напряжения</b>
+        </div>
+        <div class="status__cell">
+          <span class="status__label">Солнце</span>
+          <b class="status__val only-night">0 кВт · вечер</b>
+          <b class="status__val status__val--good only-day">4,2 кВт</b>
+          <b class="status__val only-pro">1,1 кВт</b>
+        </div>
+        <div class="status__cell">
+          <span class="status__label">Дом потребляет</span>
+          <b class="status__val" data-live-load>0,42 кВт</b>
+        </div>
+        <div class="status__cell">
+          <span class="status__label">Хватит ещё</span>
+          <b class="status__val status__val--accent" data-live-left>≈ 19 ч</b>
+        </div>
+      </div>
+      <div class="status__battery">
+        <div class="status__bar"><span data-live-bar style="width:78%"></span></div>
+        <span class="status__pct" data-live-pct>78%</span>
+      </div>
+      <ul class="status__loads">
+        <li><svg class="ic"><use href="#i-flame"/></svg>Котёл</li>
+        <li><svg class="ic"><use href="#i-drop"/></svg>Насос</li>
+        <li><svg class="ic"><use href="#i-fridge"/></svg>Холодильник</li>
+        <li><svg class="ic"><use href="#i-bulb"/></svg>Свет</li>
+        <li><svg class="ic"><use href="#i-wifi"/></svg>Интернет</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ========================= ЦИФРЫ ========================= -->
+<section class="facts" aria-label="Коротко о системе">
+  <div class="container facts__in">
+    <div class="fact"><b>до 30 ч</b><span>котёл, насос, холодильник, свет и интернет — от аккумулятора 10&nbsp;кВт·ч, с учётом расхода самого инвертора</span></div>
+    <div class="fact"><b>&lt; 20 мс</b><span>переключение на аккумулятор — техника не&nbsp;перезагружается</span></div>
+    <div class="fact"><b>6000+</b><span>циклов заряда у LiFePO4 — это больше 10 лет каждодневной работы</span></div>
+    <div class="fact tbc" data-tbc="Срок монтажа — уточнить у Олега"><b>1 день</b><span>на монтаж и подключение к щитку и котлу</span></div>
+  </div>
+</section>
+
+<!-- ========================= ЧТО ПРОДОЛЖИТ РАБОТАТЬ ========================= -->
+<section class="section keep" id="keep" aria-labelledby="keep-title">
+  <div class="container">
+    <div class="section__head">
+      <p class="eyebrow">Зачем это дому</p>
+      <h2 class="section__title" id="keep-title">Когда пропадает сеть, в доме останавливается главное</h2>
+      <p class="section__lead">Без электричества не работает даже газовый котёл: встают циркуляционный насос и автоматика. Система резервного питания возвращает дому самое важное — автоматически и без вашего участия.</p>
+    </div>
+    <div class="keep__layout">
+      <figure class="keep__photo reveal">
+        <img src="assets/img/warm_home.webp" alt="Вечер в загородном доме: за окном у соседей темно, а в комнате тепло и горит свет" loading="lazy">
+        <figcaption><svg class="ic"><use href="#i-snow"/></svg>За окном −18°, у соседей темно. В доме +22° и горит свет.</figcaption>
+      </figure>
+      <div class="keep__grid">
+        <article class="tile reveal"><span class="tile__ic"><svg class="ic"><use href="#i-flame"/></svg></span><h3>Отопление</h3><p>Настенный газовый котёл берёт 110–160&nbsp;Вт — около 3&nbsp;кВт·ч в сутки. Аккумулятор держит его сутками.</p></article>
+        <article class="tile reveal"><span class="tile__ic"><svg class="ic"><use href="#i-drop"/></svg></span><h3>Вода</h3><p>Насос скважины работает 10–25 минут в сутки, но при пуске берёт в 3–7 раз больше. Инвертор подбираем с запасом.</p></article>
+        <article class="tile reveal"><span class="tile__ic"><svg class="ic"><use href="#i-fridge"/></svg></span><h3>Холодильник</h3><p>Около 0,9&nbsp;кВт·ч в сутки — продукты и морозилка не пострадают даже при долгом отключении.</p></article>
+        <article class="tile reveal"><span class="tile__ic"><svg class="ic"><use href="#i-bulb"/></svg></span><h3>Свет</h3><p>Светодиодное освещение всего дома — обычно меньше 200&nbsp;Вт.</p></article>
+        <article class="tile reveal"><span class="tile__ic"><svg class="ic"><use href="#i-wifi"/></svg></span><h3>Интернет и связь</h3><p>Роутер, телефоны и ноутбуки: работа и связь без перерыва.</p></article>
+        <article class="tile reveal"><span class="tile__ic"><svg class="ic"><use href="#i-shield"/></svg></span><h3>Безопасность</h3><p>Видеонаблюдение, сигнализация и автоматические ворота остаются в строю.</p></article>
+        <article class="tile reveal"><span class="tile__ic"><svg class="ic"><use href="#i-wind"/></svg></span><h3>Септик</h3><p>Компрессор Топаса или Астры (20–65&nbsp;Вт) не остановится — без запаха и аварий.</p></article>
+        <article class="tile reveal"><span class="tile__ic"><svg class="ic"><use href="#i-microwave"/></svg></span><h3>Кухня</h3><p>Микроволновка и чайник — в разумных пределах, если хватает мощности инвертора.</p></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= КАЛЬКУЛЯТОР ========================= -->
+<section class="section calc" id="calc" aria-labelledby="calc-title">
+  <div class="container">
+    <div class="section__head section__head--center">
+      <p class="eyebrow">Подбор за минуту</p>
+      <h2 class="section__title" id="calc-title">Рассчитайте систему для своего дома</h2>
+      <p class="section__lead">Отметьте, что должно работать без сети и сколько часов нужно продержаться. Покажем мощность инвертора, ёмкость аккумулятора и подходящий комплект.</p>
+    </div>
+
+    <div class="calc__layout">
+      <form class="calc__form" id="calc-form" onsubmit="return false" aria-label="Параметры расчёта">
+        <fieldset class="calc__step">
+          <legend><span class="calc__num">1</span>Где ставим систему</legend>
+          <div class="seg seg--cards" role="radiogroup">
+            <label class="choice"><input type="radio" name="place" value="flat"><span><svg class="ic"><use href="#i-building"/></svg><b>Квартира</b><small>без панелей, от сети</small></span></label>
+            <label class="choice"><input type="radio" name="place" value="house" checked><span><svg class="ic"><use href="#i-home"/></svg><b>Частный дом</b><small>котёл, насос, септик</small></span></label>
+            <label class="choice"><input type="radio" name="place" value="dacha"><span><svg class="ic"><use href="#i-trees"/></svg><b>Дача</b><small>сезонно, насос и свет</small></span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="calc__step">
+          <legend><span class="calc__num">2</span>Что должно работать без сети</legend>
+          <div class="appl" id="appl-list"><!-- заполняется из app.js --></div>
+        </fieldset>
+
+        <fieldset class="calc__step">
+          <legend><span class="calc__num">3</span>Сколько продержаться без сети</legend>
+          <div class="seg" role="radiogroup">
+            <label class="pill"><input type="radio" name="hours" value="4"><span>4 часа</span></label>
+            <label class="pill"><input type="radio" name="hours" value="8"><span>8 часов</span></label>
+            <label class="pill"><input type="radio" name="hours" value="12"><span>12 часов</span></label>
+            <label class="pill"><input type="radio" name="hours" value="24" checked><span>Сутки</span></label>
+            <label class="pill"><input type="radio" name="hours" value="72"><span>3 суток</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="calc__step">
+          <legend><span class="calc__num">4</span>Солнечные панели</legend>
+          <div class="seg" role="radiogroup">
+            <label class="pill"><input type="radio" name="solar" value="0"><span>Без панелей</span></label>
+            <label class="pill"><input type="radio" name="solar" value="1" checked><span>Для подзарядки</span></label>
+            <label class="pill"><input type="radio" name="solar" value="2"><span>Максимум солнца</span></label>
+          </div>
+          <p class="calc__hint" id="solar-hint"></p>
+        </fieldset>
+      </form>
+
+      <aside class="calc__result" aria-live="polite">
+        <div class="res__card">
+          <p class="res__eyebrow">Ваша система</p>
+          <div class="res__hero">
+            <div class="res__gauge" id="res-gauge" style="--p:.7">
+              <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" class="g-track"/><circle cx="60" cy="60" r="52" class="g-fill"/></svg>
+              <div class="res__gauge-in"><b id="res-runtime">24</b><span id="res-runtime-unit">часа</span></div>
+            </div>
+            <p class="res__hero-text"><span id="res-runtime-text">Дом продержится без сети примерно сутки</span><small>при средней нагрузке <b id="res-avg">0,4 кВт</b></small></p>
+          </div>
+          <dl class="res__specs">
+            <div><dt><svg class="ic"><use href="#i-inverter"/></svg>Инвертор</dt><dd id="res-inv">6 кВт</dd></div>
+            <div><dt><svg class="ic"><use href="#i-battery"/></svg>Аккумулятор</dt><dd id="res-bat">10 кВт·ч</dd></div>
+            <div><dt><svg class="ic"><use href="#i-panel"/></svg>Панели</dt><dd id="res-pv">8 × 580 Вт</dd></div>
+            <div><dt><svg class="ic"><use href="#i-zap"/></svg>Пик при пуске</dt><dd id="res-peak">3,9 кВт</dd></div>
+          </dl>
+          <div class="res__solar" id="res-surge"></div>
+          <div class="res__solar" id="res-solar"></div>
+          <div class="res__fuel" id="res-fuel"></div>
+          <div class="res__kit" id="res-kit"></div>
+          <button class="btn btn--primary btn--block" type="button" id="calc-cta"><svg class="ic"><use href="#i-send"/></svg>Получить точный расчёт</button>
+          <p class="res__note">Оценка ориентировочная. Точный расчёт делаем по вашим приборам, щитку и месту установки — бесплатно.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= КОМПЛЕКТЫ ========================= -->
+<section class="section kits" id="kits" aria-labelledby="kits-title">
+  <div class="container">
+    <div class="section__head section__head--row">
+      <div>
+        <p class="eyebrow">Готовые решения</p>
+        <h2 class="section__title" id="kits-title">Комплекты под типичные задачи</h2>
+        <p class="section__lead">Каждый комплект можно расширить: добавить аккумуляторы или панели позже, без замены уже купленного.</p>
+      </div>
+      <div class="price-mode seg" role="radiogroup" aria-label="Как считать цену">
+        <label class="pill"><input type="radio" name="pricemode" value="equip" checked><span>Оборудование</span></label>
+        <label class="pill"><input type="radio" name="pricemode" value="turnkey"><span>Под ключ с монтажом</span></label>
+      </div>
+    </div>
+    <div class="kits__grid" id="kits-grid"><!-- заполняется из app.js --></div>
+    <div class="can">
+      <div class="can__col can__col--yes"><h3><svg class="ic"><use href="#i-check"/></svg>Потянет</h3><p>Газовый котёл, насос скважины, холодильник и морозильник, свет, интернет, септик, камеры и ворота, телевизор. Микроволновку, чайник и стиральную машину — по очереди.</p></div>
+      <div class="can__col can__col--no"><h3><svg class="ic"><use href="#i-x"/></svg>Не потянет без отдельного расчёта</h3><p>Электрокотёл и электрическое отопление, бойлер на полную мощность, электроплиту вместе с духовкой, тёплые полы, сауну, зарядку электромобиля. Скажем об этом честно до покупки.</p></div>
+    </div>
+    <p class="kits__note tbc" data-tbc="Цены — ориентир по рынку Москвы на 10.10.2026; заменить на цены Олега">Цены — ориентир по рынку Москвы на октябрь 2026: нижняя граница — бюджетные бренды, верхняя — Deye и аналоги. Нужен другой состав — соберём индивидуально.</p>
+  </div>
+</section>
+
+<!-- ========================= КАК РАБОТАЕТ ========================= -->
+<section class="section how" id="how" aria-labelledby="how-title">
+  <div class="container">
+    <div class="section__head section__head--center">
+      <p class="eyebrow">Как это устроено</p>
+      <h2 class="section__title" id="how-title">Три компонента и умный инвертор между ними</h2>
+      <p class="section__lead">Переключите режим и посмотрите, откуда дом берёт энергию в каждый момент.</p>
+    </div>
+
+    <div class="flow">
+      <div class="flow__tabs seg" role="tablist" aria-label="Режим работы">
+        <button class="pill-btn is-active" role="tab" aria-selected="true" data-mode="grid"><svg class="ic"><use href="#i-pole"/></svg>Сеть есть</button>
+        <button class="pill-btn" role="tab" aria-selected="false" data-mode="outage"><svg class="ic"><use href="#i-zapoff"/></svg>Сеть пропала</button>
+        <button class="pill-btn" role="tab" aria-selected="false" data-mode="sun"><svg class="ic"><use href="#i-sun"/></svg>Солнечный день</button>
+      </div>
+
+      <div class="flow__stage" data-mode="grid" id="flow-stage">
+        <svg class="flow__svg" viewBox="0 0 860 440" role="img" aria-labelledby="flow-cap-title">
+          <defs>
+            <linearGradient id="flowGrad" x1="0" x2="1"><stop offset="0" class="fg-a"/><stop offset="1" class="fg-b"/></linearGradient>
+          </defs>
+          <!-- линии -->
+          <path class="wire wire--sun" d="M190 96 C 300 96, 330 196, 382 206"/>
+          <path class="wire wire--grid" d="M190 336 C 300 336, 330 236, 382 226"/>
+          <path class="wire wire--home" d="M478 216 L 660 216"/>
+          <path class="wire wire--bat" d="M430 262 L 430 330"/>
+          <path class="flowline flowline--sun" d="M190 96 C 300 96, 330 196, 382 206"/>
+          <path class="flowline flowline--grid" d="M190 336 C 300 336, 330 236, 382 226"/>
+          <path class="flowline flowline--home" d="M478 216 L 660 216"/>
+          <path class="flowline flowline--batin" d="M430 262 L 430 330"/>
+          <path class="flowline flowline--batout" d="M430 330 L 430 262"/>
+          <!-- узлы -->
+          <g class="node node--sun" transform="translate(60 52)"><rect width="130" height="88" rx="20"/><use href="#i-sun" x="16" y="16" width="30" height="30"/><text x="16" y="70" class="node__t">Солнце</text><text x="114" y="36" text-anchor="end" class="node__v" data-flow-val="sun">0 кВт</text></g>
+          <g class="node node--grid" transform="translate(60 292)"><rect width="130" height="88" rx="20"/><use href="#i-pole" x="16" y="16" width="30" height="30"/><text x="16" y="70" class="node__t">Сеть</text><text x="114" y="36" text-anchor="end" class="node__v" data-flow-val="grid">есть</text></g>
+          <g class="node node--inv" transform="translate(382 170)"><rect width="96" height="92" rx="22"/><use href="#i-inverter" x="30" y="14" width="36" height="36"/><text x="48" y="76" text-anchor="middle" class="node__t">Инвертор</text></g>
+          <g class="node node--bat" transform="translate(365 330)"><rect width="130" height="88" rx="20"/><use href="#i-battery" x="16" y="16" width="30" height="30"/><text x="16" y="70" class="node__t">Аккумулятор</text><text x="114" y="36" text-anchor="end" class="node__v" data-flow-val="bat">100%</text></g>
+          <g class="node node--home" transform="translate(660 160)"><rect width="150" height="112" rx="24"/><use href="#i-home" x="18" y="18" width="34" height="34"/><text x="18" y="82" class="node__t">Дом</text><text x="18" y="100" class="node__s" data-flow-val="homesrc">питание от сети</text><text x="134" y="40" text-anchor="end" class="node__v" data-flow-val="home">1,2 кВт</text></g>
+          <title id="flow-cap-title">Схема движения энергии между солнцем, сетью, инвертором, аккумулятором и домом</title>
+        </svg>
+        <div class="flow__caption" id="flow-caption">
+          <h3 data-flow-cap="title">Сеть есть — аккумулятор ждёт</h3>
+          <p data-flow-cap="text">Дом питается от сети как обычно. Инвертор держит аккумулятор заряженным на 100% и следит за напряжением.</p>
+        </div>
+      </div>
+
+      <div class="parts">
+        <article class="part reveal"><span class="part__ic"><svg class="ic"><use href="#i-panel"/></svg></span><h3>Солнечные панели</h3><p>Вырабатывают энергию днём. 1&nbsp;кВт панелей под Москвой даёт в июне около 4,3&nbsp;кВт·ч в сутки, в декабре — около 0,6. С марта по сентябрь главный источник — солнце, зимой — аккумулятор.</p></article>
+        <article class="part reveal"><span class="part__ic"><svg class="ic"><use href="#i-inverter"/></svg></span><h3>Гибридный инвертор</h3><p>Мозг системы. Распределяет энергию между сетью, солнцем, аккумулятором и домом и за доли секунды переходит на аккумулятор при отключении. Умеет подключать генератор.</p></article>
+        <article class="part reveal"><span class="part__ic"><svg class="ic"><use href="#i-battery"/></svg></span><h3>Аккумулятор LiFePO4</h3><p>Хранит энергию. Литий-железо-фосфат устойчивее к перегреву, чем литиевые батареи в гаджетах, и выдерживает тысячи циклов. Ёмкость наращивается модулями.</p></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= ГЕНЕРАТОР ИЛИ АКБ ========================= -->
+<section class="section compare" id="compare" aria-labelledby="compare-title">
+  <div class="container">
+    <div class="section__head section__head--center">
+      <p class="eyebrow">Честное сравнение</p>
+      <h2 class="section__title" id="compare-title">Генератор или аккумулятор?</h2>
+      <p class="section__lead">Генератор хорош как запасной вариант на долгие отключения. Но жить с ним каждый день неудобно. Сравните сами.</p>
+    </div>
+    <div class="cmp" role="table" aria-label="Сравнение генератора и аккумулятора">
+      <div class="cmp__row cmp__row--head" role="row">
+        <span role="columnheader"></span>
+        <span role="columnheader" class="cmp__h cmp__h--gen"><svg class="ic"><use href="#i-fuel"/></svg>Бензиновый генератор</span>
+        <span role="columnheader" class="cmp__h cmp__h--bat"><svg class="ic"><use href="#i-battery"/></svg>Аккумулятор + инвертор</span>
+      </div>
+      <div class="cmp__row" role="row"><span role="rowheader">Когда включится</span><span role="cell"><i class="m m--bad"></i>Завести вручную или ждать автозапуска — свет моргнёт, техника может сбиться</span><span role="cell"><i class="m m--good"></i>Сразу и сам: переход за доли секунды, вы его не заметите</span></div>
+      <div class="cmp__row" role="row"><span role="rowheader">Шум и выхлоп</span><span role="cell"><i class="m m--bad"></i>71–82&nbsp;дБ на расстоянии 7&nbsp;м, только на улице, нужен навес и вентиляция</span><span role="cell"><i class="m m--good"></i>Тихо, ставится в котельной или кладовой</span></div>
+      <div class="cmp__row" role="row"><span role="rowheader">Топливо</span><span role="cell"><i class="m m--bad"></i>2,2–3,1&nbsp;л бензина в час на полной мощности, а на малой нагрузке киловатт-час выходит в разы дороже. Запас в канистрах, при дефиците — проблема</span><span role="cell"><i class="m m--good"></i>Не нужно: заряд от сети или солнца</span></div>
+      <div class="cmp__row" role="row"><span role="rowheader">Обслуживание</span><span role="cell"><i class="m m--bad"></i>Масло — каждые 50–100 часов: при круглосуточной работе раз в 2–4 дня. Свечи, фильтры, старт на морозе</span><span role="cell"><i class="m m--good"></i>Почти не требует, контроль в приложении</span></div>
+      <div class="cmp__row" role="row"><span role="rowheader">Долгие отключения</span><span role="cell"><i class="m m--good"></i>Работает, пока есть топливо</span><span role="cell"><i class="m m--mid"></i>Часы и сутки; с солнцем — дольше. При многодневной аварии генератор подзарядит аккумулятор за 2–3 часа в сутки</span></div>
+      <div class="cmp__row" role="row"><span role="rowheader">Деньги</span><span role="cell"><i class="m m--mid"></i>5–6&nbsp;кВт — 40–94&nbsp;тыс.&nbsp;₽, с автозапуском около 87&nbsp;тыс. Топливо — 35–47&nbsp;₽ за кВт·ч даже на полной мощности</span><span role="cell"><i class="m m--mid"></i>Дороже на старте, зато без топлива: износ аккумулятора — около 5–6&nbsp;₽ за кВт·ч</span></div>
+    </div>
+    <p class="cmp__verdict"><svg class="ic"><use href="#i-check"/></svg><span>Лучшее решение для частых и долгих отключений — <b>аккумулятор + солнце</b>, а генератор — подстраховка. Гибридный инвертор работает со всеми тремя источниками.</span></p>
+  </div>
+</section>
+
+<!-- ========================= ПОЧЕМУ ЗАРАНЕЕ ========================= -->
+<section class="why" id="why" aria-labelledby="why-title">
+  <div class="why__media" aria-hidden="true"><img src="assets/img/ice_storm.webp" alt="" loading="lazy"></div>
+  <div class="container why__in">
+    <div class="why__head">
+      <p class="eyebrow">Почему сейчас</p>
+      <h2 class="section__title" id="why-title">Готовьте дом заранее, а не в день аварии</h2>
+    </div>
+    <div class="why__grid">
+      <article class="why__card reveal">
+        <span class="why__num">01</span>
+        <h3>Снег и лёд рвут провода</h3>
+        <p>Декабрь 2010, ледяной дождь: в Подмосковье без света остались, по разным данным, от 88 до 400 тысяч человек, часть сёл — до 6 суток. Май 2025, снег на листве: без света больше 525 посёлков и СНТ, одна деревня — пять дней.</p>
+        <span class="src">Источники: <a href="https://ria.ru/20101226/313613352.html" target="_blank" rel="noopener">РИА</a>, <a href="https://lenta.ru/news/2010/12/26/light/" target="_blank" rel="noopener">Lenta</a>, <a href="https://rg.ru/2025/05/05/reg-cfo/konec-sveta.html" target="_blank" rel="noopener">РГ</a></span>
+      </article>
+      <article class="why__card reveal">
+        <span class="why__num">02</span>
+        <h3>По правилам — до суток без света</h3>
+        <p>Для обычного частного дома правила допускают перерыв до 24 часов подряд и до 72 часов в год. А после крупной аварии СНТ и дальние посёлки подключают последними.</p>
+        <span class="src">Источник: <a href="https://www.consultant.ru/document/cons_doc_LAW_51030/380b06dccc401d6f49064c8be507694f736b57d1/" target="_blank" rel="noopener">постановление Правительства № 861, п. 31(6)</a></span>
+      </article>
+      <article class="why__card reveal">
+        <span class="why__num">03</span>
+        <h3>В ажиотаж оборудование пропадает</h3>
+        <p>Когда спрос вспыхивает, первыми пустеют склады: после зимнего шторма 2021 года в Техасе домашние генераторы ждали около 28 недель. Купить спокойно можно только до всплеска.</p>
+        <span class="src">Источник: <a href="https://www.fool.com/earnings/call-transcripts/2021/04/29/generac-holdings-inc-gnrc-q1-2021-earnings-call-tr/" target="_blank" rel="noopener">Generac, отчёт инвесторам 29.04.2021</a></span>
+      </article>
+      <article class="why__card reveal">
+        <span class="why__num">04</span>
+        <h3>Монтаж — за день, пока тепло</h3>
+        <p class="tbc" data-tbc="Сроки монтажа и наличие — уточнить у Олега">Подключение к щитку и котлу занимает один день. Удобнее сделать это до морозов: электрик спокойно всё проверит, а аккумулятор встанет в тёплое помещение.</p>
+      </article>
+    </div>
+    <a class="btn btn--primary btn--lg" href="#calc"><svg class="ic"><use href="#i-snow"/></svg>Подготовить дом к зиме</a>
+  </div>
+</section>
+
+<!-- ========================= КАК РАБОТАЕМ ========================= -->
+<section class="section steps" id="steps" aria-labelledby="steps-title">
+  <div class="container steps__layout">
+    <div class="steps__copy">
+      <p class="eyebrow">Как мы работаем</p>
+      <h2 class="section__title" id="steps-title">От звонка до света при отключении</h2>
+      <ol class="steps__list">
+        <li class="reveal"><span>1</span><div><h3>Заявка <em class="steps__time tbc" data-tbc="Скорость ответа — уточнить у Олега">ответим за 15 минут</em></h3><p>Позвоните, напишите в WhatsApp или Telegram — или оставьте заявку на сайте.</p></div></li>
+        <li class="reveal"><span>2</span><div><h3>Бесплатный расчёт <em class="steps__time">в день обращения</em></h3><p>Спросим, что должно работать и сколько часов. Посчитаем мощность и ёмкость, предложим 2–3 варианта под бюджет. Можно удалённо — по фото щитка и котла.</p></div></li>
+        <li class="reveal tbc" data-tbc="Есть ли склад и где, сроки доставки — уточнить у Олега"><span>3</span><div><h3>Комплект со склада <em class="steps__time">1–3 дня</em></h3><p>Оборудование в наличии — без ожидания поставки. Доставим или соберёте сами.</p></div></li>
+        <li class="reveal tbc" data-tbc="Монтаж: свои электрики или партнёры, сроки — уточнить у Олега"><span>4</span><div><h3>Монтаж и проверка <em class="steps__time">1 день</em></h3><p>Электрик подключит систему к щитку и котлу, настроит инвертор и при вас проверит переключение.</p></div></li>
+        <li class="reveal"><span>5</span><div><h3>Поддержка <em class="steps__time">весь срок службы</em></h3><p>Гарантия, консультации и расширение системы, когда понадобится больше энергии.</p></div></li>
+      </ol>
+    </div>
+    <figure class="steps__photo reveal">
+      <img src="assets/img/install.webp" alt="Электрик подключает гибридный инвертор в котельной частного дома" loading="lazy">
+    </figure>
+  </div>
+</section>
+
+<!-- ========================= ДОВЕРИЕ ========================= -->
+<section class="section trust" aria-labelledby="trust-title">
+  <div class="container">
+    <div class="section__head section__head--center">
+      <p class="eyebrow">Почему нам можно доверять</p>
+      <h2 class="section__title" id="trust-title">Мы начали со своего дома</h2>
+    </div>
+    <div class="trust__grid">
+      <article class="trust__card reveal tbc" data-tbc="История Олега: какая система стоит у него дома — уточнить и попросить фото"><span class="tile__ic"><svg class="ic"><use href="#i-home"/></svg></span><h3>Проверили на себе</h3><p>Прежде чем продавать, основатель поставил такую систему в собственный дом и проверил её в деле.</p></article>
+      <article class="trust__card reveal"><span class="tile__ic"><svg class="ic"><use href="#i-calc"/></svg></span><h3>Честный расчёт</h3><p>Не продаём лишнего: если хватит аккумулятора без панелей — так и скажем.</p></article>
+      <article class="trust__card reveal tbc" data-tbc="Наличие и адрес склада — уточнить у Олега"><span class="tile__ic"><svg class="ic"><use href="#i-box"/></svg></span><h3>Оборудование в наличии</h3><p>Держим запас инверторов, аккумуляторов и панелей, чтобы не ждать поставки.</p></article>
+      <article class="trust__card reveal tbc" data-tbc="Условия гарантии — уточнить у Олега"><span class="tile__ic"><svg class="ic"><use href="#i-shield"/></svg></span><h3>Гарантия</h3><p>Гарантия производителя на оборудование и наша — на монтаж и настройку.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= ВОПРОСЫ ========================= -->
+<section class="section faq" id="faq" aria-labelledby="faq-title">
+  <div class="container faq__layout">
+    <div class="faq__head">
+      <p class="eyebrow">Вопросы и ответы</p>
+      <h2 class="section__title" id="faq-title">Коротко о главном</h2>
+      <p class="section__lead">Не нашли ответ — спросите в мессенджере, ответим за&nbsp;несколько минут.</p>
+      <a class="btn btn--ghost" href="#contact"><svg class="ic"><use href="#i-chat"/></svg>Задать вопрос</a>
+    </div>
+    <div class="faq__list">
+      <details class="qa" open><summary>Сколько дом проработает от аккумулятора?<svg class="ic"><use href="#i-plus"/></svg></summary><p>Зависит от ёмкости и того, что включено. Котёл, насос, холодильник, свет и интернет в среднем берут 0,2–0,3&nbsp;кВт, ещё 40–80&nbsp;Вт тратит сам инвертор — об этом часто забывают. Поэтому аккумулятора на 10&nbsp;кВт·ч хватает примерно на 23–35 часов. Чайник, плита и обогреватели сокращают время. Калькулятор выше считает это для вашего набора приборов.</p></details>
+      <details class="qa"><summary>Можно ли поставить систему в квартире?<svg class="ic"><use href="#i-plus"/></svg></summary><p>Да. В квартире обычно ставят инвертор с аккумулятором без панелей: система заряжается от сети и сама подхватывает холодильник, свет, роутер и технику при отключении. Подключаем к отдельным розеткам или к линии в щитке. Самый простой вариант — портативная станция на 1–3&nbsp;кВт·ч: она включается в розетку и не требует монтажа.</p></details>
+      <details class="qa"><summary>Что дают солнечные панели зимой?<svg class="ic"><use href="#i-plus"/></svg></summary><p>Немного. 1&nbsp;кВт панелей под Москвой даёт в декабре в среднем около 0,6&nbsp;кВт·ч в сутки, в пасмурный день — вдвое меньше, а под снегом почти ничего. В июне — около 4,3, за год — около 970&nbsp;кВт·ч. Поэтому зимой главную работу делает аккумулятор, а с марта по сентябрь дом может жить в основном на солнце.</p></details>
+      <details class="qa"><summary>Нужны ли разрешения?<svg class="ic"><use href="#i-plus"/></svg></summary><p>Для автономной системы, которая не отдаёт энергию в сеть, ничего оформлять не нужно — важен грамотный монтаж по правилам электробезопасности. Продавать излишки солнечной энергии в сеть частному дому тоже можно: поможем оформить подключение.</p></details>
+      <details class="qa"><summary>Это безопасно?<svg class="ic"><use href="#i-plus"/></svg></summary><p>Мы ставим аккумуляторы на основе LiFePO4 со встроенной системой защиты: они устойчивы к перегреву и не боятся глубоких разрядов. Монтаж — с автоматами, защитой и правильным сечением кабеля, в сухом помещении.</p></details>
+      <details class="qa"><summary>Можно начать с малого и расширить потом?<svg class="ic"><use href="#i-plus"/></svg></summary><p>Да. Часто начинают с инвертора и одного аккумулятора, а позже добавляют модули и панели. Мы сразу подбираем инвертор с запасом, чтобы расширение не требовало замены.</p></details>
+      <details class="qa"><summary>А если отключат на несколько суток?<svg class="ic"><use href="#i-plus"/></svg></summary><p>Большинство отключений короче суток — их закрывает аккумулятор. На многодневные зимние аварии честный ответ — генератор с автозапуском, подключённый к инвертору: он заряжает аккумулятор 2–3 часа в сутки, а дом всё время питается без перебоев. Так генератор не молотит всю ночь вхолостую и тратит в разы меньше бензина.</p></details>
+      <details class="qa"><summary>Где ставить оборудование?<svg class="ic"><use href="#i-plus"/></svg></summary><p>Нужна сухая стена 1–1,5&nbsp;м² в котельной, кладовой или техпомещении. Важно: помещение должно быть тёплым — на морозе аккумуляторы LiFePO4 не заряжаются, поэтому в неотапливаемый гараж или на улицу зимой их ставить нельзя.</p></details>
+      <details class="qa"><summary>Стоит ли ждать?<svg class="ic"><use href="#i-plus"/></svg></summary><p>Если у вас уже бывают отключения — лучше не ждать. Сезон аварий — зима, а монтаж удобнее сделать до морозов. И на всех рынках, где отключения учащались, оборудование при всплеске спроса дорожало и пропадало из наличия.</p></details>
+      <details class="qa"><summary>Сколько служит система?<svg class="ic"><use href="#i-plus"/></svg></summary><p>Аккумуляторы LiFePO4 рассчитаны на тысячи циклов заряда — это 10 лет и больше. Солнечные панели служат 25 лет и дольше, инверторы — 10–15 лет.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= ЗАЯВКА ========================= -->
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="container contact__in">
+    <div class="contact__copy">
+      <p class="eyebrow">Бесплатный расчёт</p>
+      <h2 class="section__title" id="contact-title">Получите расчёт для вашего дома</h2>
+      <p class="section__lead">Расскажите, что должно работать без сети. Перезвоним, уточним детали и пришлём 2–3 варианта с ценами.</p>
+      <div class="contact__msg">
+        <a class="msg msg--wa tbc" data-tbc="Номер WhatsApp — уточнить у Олега" href="#contact"><svg class="ic"><use href="#i-chat"/></svg>WhatsApp</a>
+        <a class="msg msg--tg tbc" data-tbc="Telegram — уточнить у Олега" href="#contact"><svg class="ic"><use href="#i-send"/></svg>Telegram</a>
+        <a class="msg msg--ph tbc" data-tbc="Телефон — уточнить у Олега" href="#contact"><svg class="ic"><use href="#i-phone"/></svg>+7 (900) 000-00-00</a>
+      </div>
+      <p class="contact__photo"><svg class="ic"><use href="#i-eye"/></svg><span>Или пришлите в мессенджер три фото — <b>щиток, котёл и место под оборудование</b>. Подберём систему удалённо, без выезда.</span></p>
+    </div>
+    <form class="contact__form" id="lead-form" novalidate>
+      <div class="field"><label for="f-name">Как к вам обращаться</label><input id="f-name" name="name" autocomplete="name" placeholder="Имя"></div>
+      <div class="field"><label for="f-phone">Телефон</label><input id="f-phone" name="phone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__"></div>
+      <div class="field"><label for="f-place">Где ставим</label>
+        <select id="f-place" name="place"><option value="house">Частный дом</option><option value="flat">Квартира</option><option value="dacha">Дача</option></select></div>
+      <div class="field"><label for="f-city">Город или район</label><input id="f-city" name="city" autocomplete="address-level2" placeholder="Например: Истра"></div>
+      <div class="field field--wide"><label for="f-msg">Что важно сохранить при отключении</label><textarea id="f-msg" name="msg" rows="3" placeholder="Например: котёл, насос скважины, холодильник, свет — на сутки"></textarea></div>
+      <button class="btn btn--primary btn--lg btn--block" type="submit"><svg class="ic"><use href="#i-send"/></svg>Получить расчёт</button>
+      <p class="contact__legal">Нажимая кнопку, вы соглашаетесь на обработку персональных данных. <span class="demo-tag">Демо: заявка никуда не отправляется</span></p>
+      <div class="contact__ok" id="lead-ok" hidden>
+        <svg class="ic"><use href="#i-check"/></svg>
+        <h3>Спасибо! Заявка принята</h3>
+        <p>В рабочей версии она придёт Олегу в Telegram и на почту. Сейчас это демо — данные никуда не отправлены и не сохранены.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer__in">
+    <div class="footer__brand">
+      <a class="logo logo--footer" href="#top"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="11" class="logo__bg"/><circle cx="20" cy="17" r="6.2" class="logo__sun"/><path d="M8 30.5 20 21l12 9.5" class="logo__roof"/><path d="M20 5.5v2.4M9.6 9.7l1.7 1.7M30.4 9.7l-1.7 1.7M5.8 17h2.4M31.8 17h2.4" class="logo__rays"/></svg><span class="logo__text">Свой свет<small>резервное питание для дома</small></span></a>
+      <p>Аккумуляторы, инверторы и солнечные панели для домов, дач и квартир.</p>
+    </div>
+    <nav class="footer__nav" aria-label="Разделы">
+      <a href="#kits">Комплекты</a><a href="#calc">Подбор</a><a href="#how">Как работает</a><a href="#compare">Генератор или АКБ</a><a href="#faq">Вопросы</a><a href="#contact">Контакты</a>
+    </nav>
+    <div class="footer__meta">
+      <p class="tbc" data-tbc="Юрлицо/ИП, адрес, реквизиты — от Олега">ИП / ООО «…» · Москва и область</p>
+      <p>Черновик сайта, октябрь 2026. Цены и условия ориентировочные. Иллюстрации созданы ИИ и не являются фото реальных объектов.</p>
+      <a href="oleg.html">Заметки для Олега →</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Панель вариантов дизайна (только для черновика) -->
+<div class="switcher" id="switcher" aria-label="Варианты дизайна">
+  <button type="button" class="switcher__fold" id="switcher-fold" aria-label="Свернуть панель" title="Свернуть"><svg class="ic"><use href="#i-x"/></svg></button>
+  <button type="button" class="switcher__open" id="switcher-open" aria-label="Варианты дизайна"><svg class="ic"><use href="#i-palette"/></svg>Варианты дизайна</button>
+  <span class="switcher__label"><svg class="ic"><use href="#i-palette"/></svg>Вариант</span>
+  <div class="switcher__opts" role="radiogroup">
+    <button type="button" data-set-theme="night" aria-pressed="true"><i class="sw sw--night"></i>Вечер</button>
+    <button type="button" data-set-theme="day" aria-pressed="false"><i class="sw sw--day"></i>День</button>
+    <button type="button" data-set-theme="pro" aria-pressed="false"><i class="sw sw--pro"></i>Мастер</button>
+  </div>
+  <label class="switcher__tbc"><input type="checkbox" id="tbc-toggle"><span><svg class="ic"><use href="#i-eye"/></svg>Что уточнить у Олега</span></label>
+</div>
+
+<div class="tbc-tip" id="tbc-tip" hidden></div>
+</body>
+</html>
