@@ -713,5 +713,63 @@ button, input, select, textarea { font: inherit; color: inherit; }
   .appl, .seg--cards, .parts, .why__grid { grid-template-columns: 1fr 1fr; }
   .cmp__row { grid-template-columns: 1fr; }
   .header__phone { display: none; }
-  .switcher { width: auto; left: 12px; right: 12px; }
+  .keep__photo { position: relative; }
+}
+
+/* -------------------------------------------------- телефон */
+@media (max-width: 640px) {
+  :root { --pad: 16px; --h2: 28px; }
+  body { font-size: 16px; }
+  .section { padding: 64px 0; }
+  .section__head { margin-bottom: 32px; }
+  .section__lead { font-size: 16.5px; }
+  .demo-bar { font-size: 12px; }
+  .demo-bar__in { min-height: 32px; gap: 8px; }
+  .demo-bar__in > span:nth-child(2) { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .demo-bar__link { padding: 3px 10px; white-space: nowrap; }
+  .header__in { height: 62px; gap: 12px; }
+  .logo__text { font-size: 17px; }
+  .logo__text small { display: none; }
+  .header__cta .btn { --h: 38px; padding: 0 14px; font-size: 13px; }
+  .hero__in { min-height: auto; padding-top: 36px; padding-bottom: 56px; gap: 0; }
+  .hero__media::after { background: linear-gradient(180deg, rgba(7, 11, 24, .82) 0%, rgba(7, 11, 24, .6) 45%, rgba(7, 11, 24, .9) 100%); }
+  [data-theme="pro"] .hero__media::after { background: linear-gradient(180deg, rgba(241, 242, 244, .95) 0%, rgba(241, 242, 244, .82) 55%, rgba(241, 242, 244, .97) 100%); }
+  .hero__title { font-size: 36px; }
+  [data-theme="day"] .hero__title { font-size: 60px; }
+  [data-theme="day"] .hero__media { height: 260px; margin-top: 8px; }
+  .hero__lead { font-size: 16.5px; margin-top: 18px; }
+  .hero__actions { margin-top: 26px; }
+  .hero__actions .btn { width: 100%; }
+  .hero__chips { margin-top: 24px; gap: 8px 16px; }
+  [data-theme="pro"] .hotspot { display: none; }
+  .facts__in { grid-template-columns: 1fr 1fr; }
+  .fact { padding: 22px 12px 24px 0; margin-right: 12px; }
+  .fact b { font-size: 26px; }
+  .fact:nth-child(2n) { border-right: 0; margin-right: 0; }
+  .keep__photo { aspect-ratio: 4 / 3; }
+  .keep__grid, .kits__grid, .why__grid, .trust__grid, .parts, .can, .seg--cards { grid-template-columns: 1fr; }
+  .appl { grid-template-columns: 1fr 1fr; }
+  .calc__step { padding: 18px; }
+  .res__card { padding: 20px; }
+  .section__head--row { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .kit__for { min-height: 0; }
+  .flow__stage { padding: 16px; }
+  .flow__tabs { gap: 8px; }
+  .pill-btn { height: 40px; padding: 0 14px; font-size: 14px; }
+  .flow__caption h3 { font-size: 21px; }
+  .cmp__row > span { padding: 14px 16px; }
+  .cmp__row--head > span:first-child { display: none; }
+  .why { padding: 80px 0 72px; }
+  .why__card { padding: 22px; }
+  .steps__list li { grid-template-columns: 44px 1fr; gap: 12px; }
+  .contact { padding: 72px 0; }
+  .contact__form { grid-template-columns: 1fr; padding: 22px; }
+  .footer { padding: 40px 0 120px; }
+  .footer__nav { grid-template-columns: 1fr 1fr; }
+  /* панель вариантов: компактно, без подсказок «что уточнить» (на телефоне нет наведения мыши) */
+  .switcher { left: 10px; right: 10px; bottom: 10px; transform: none; padding: 6px; gap: 6px; justify-content: space-between; border-radius: 16px; }
+  .switcher__label, .switcher__tbc { display: none; }
+  .switcher__opts { flex: 1; }
+  .switcher__opts button { flex: 1; justify-content: center; height: 36px; padding: 0 8px; font-size: 13px; }
+  .switcher.is-folded { left: auto; right: 10px; }
 }

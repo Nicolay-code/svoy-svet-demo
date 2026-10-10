@@ -84,3 +84,14 @@
   .n-grid--4, .n-grid--3, .n-steps { grid-template-columns: 1fr 1fr; }
   .n-two { grid-template-columns: 1fr; }
 }
+@media (max-width: 640px) {
+  .n-grid--4, .n-grid--3, .n-steps { grid-template-columns: 1fr; }
+  .n-hero { padding: 48px 0 40px; }
+  .n-hero h1 { font-size: 32px; }
+  .n-lead { font-size: 17px; }
+  .n-actions .btn { width: 100%; }
+  .n-sec { padding: 56px 0; }
+  .n-h2 { font-size: 24px; }
+  .n-alert { padding: 22px; }
+  .n-top .logo__text small { display: none; }
+}
